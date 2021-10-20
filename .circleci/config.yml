@@ -125,9 +125,10 @@ jobs:
           name : Scan Back End
           command: |
             cd backend
+            npm i
+            npm run build
             npm install
-            npm audit fix --force
-            npm audit --audit-level=critical
+            npm audit fix --audit-level=critical --force
 
 workflows:
   default:
