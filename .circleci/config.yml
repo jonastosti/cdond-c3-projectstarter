@@ -216,6 +216,7 @@ jobs:
       - image: amazon/aws-cli
     steps:
       - checkout
+      - run: yum install -y tar gzip
       - node/install:
           install-npm: true
       - run: node --version
