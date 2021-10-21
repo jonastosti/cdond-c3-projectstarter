@@ -216,7 +216,9 @@ jobs:
       - image: amazon/aws-cli
     steps:
       - checkout
-      - node/install-npm
+      - node/install:
+          install-npm: true
+      - run: node --version
       - run:
           name: Get backend url
           command: |
