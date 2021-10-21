@@ -1,14 +1,4 @@
 ---
-- name: "update apt packages."
-  become: yes
-  apt:
-    update_cache: yes
-
-- name: "upgrade packages"
-  become: yes
-  apt:
-    upgrade: yes
-
 - name: remove dependencies that are no longer required
   become: yes
   apt:
@@ -17,7 +7,7 @@
 - name: "install dependencies."
   become: yes
   apt:
-    name: ["python","nodejs", "npm"]
+    name: ["nodejs", "npm"]
     state: latest
     update_cache: yes
 
