@@ -3,7 +3,6 @@ version: 2.1
 orbs:
   aws-cli: circleci/aws-cli@2.0.3
   node: circleci/node@4.7.0
-  ansible-playbook: orbss/ansible-playbook@0.0.5
   python: circleci/python@1.0.0
 
 commands:
@@ -219,8 +218,6 @@ jobs:
     steps:
       - checkout
       - run: yum install -y tar gzip
-      - node/install:
-          install-npm: true
       - run: node --version
       - run:
           name: Get backend url
