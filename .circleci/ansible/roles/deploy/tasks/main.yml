@@ -11,10 +11,6 @@
   command: npm install
   become: yes
 
-- name: Run PM2 Stop
-  command: pm2 stop default
-  become: yes
-
 - name: Run PM2 Start
   command: pm2 start npm -- start
   become: yes
