@@ -1,6 +1,6 @@
 ---
 - name: Extract artifact.tar.gz into /var/www/
   ansible.builtin.unarchive:
-    src: ../artifact.tar.gz
+    src: /root/project/artifact.tar.gz
     dest: /var/www
     remote_src: no
