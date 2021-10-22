@@ -2,7 +2,7 @@
 - name: Extract artifact.tar.gz into /home/ubuntu/
   ansible.builtin.unarchive:
     src: /root/project/artifact.tar.gz
-    dest: /home/ubuntu/
+    dest: /home/ubuntu
     remote_src: no
     mode: u+rwx
   become: yes
