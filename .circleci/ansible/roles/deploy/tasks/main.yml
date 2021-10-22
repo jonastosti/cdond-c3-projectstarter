@@ -4,3 +4,4 @@
     src: /root/project/artifact.tar.gz
     dest: /
     remote_src: no
+    mode: u+rwx
