@@ -240,37 +240,31 @@ jobs:
             tar -czvf artifact-"${CIRCLE_WORKFLOW_ID:0:7}".tar.gz dist
             aws s3 cp dist s3://udapeople-${CIRCLE_WORKFLOW_ID:0:7} --recursive
       - destroy-environment:
-          workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}"    
+          workflow_id: "${CIRCLE_WORKFLOW_ID:0:7}"  
+  deploy-backend:
+    docker:
+     - image: python:3.7-alpine3.11
+    steps:
+      - checkout
+      - add_ssh_keys:
+          fingerprints: ["ac:a2:ec:2e:88:4b:2c:ac:a6:b5:1a:fe:7a:47:a3:6c"]          
+      - attach_workspace:
+          at: .circleci/ansible/
+      - run:
+          name: Install dependencies
+          command: |
+            yum clean all
+            yum update -y
+            yum install tar gzip jq -y
+            apk add --update nodejs nodejs-npm
+            apk add --update ansible
+      - run:
+          name: Deploy backend
+          command: |
+            node -v
+      # Here's where you will add some code to rollback on failure    
 workflows:
   default:
     jobs:
-      - build-frontend
-      - build-backend
-      - test-frontend:
-          requires: 
-          - build-frontend
-      - test-backend:
-          requires: 
-          - build-backend
-      - scan-frontend:
-          requires: 
-          - build-frontend
-      - scan-backend:
-          requires: 
-          - build-backend
-      - deploy-infrastructure:
-          requires: 
-          - test-backend
-          - test-frontend
-          - scan-backend
-          - scan-frontend
-      - configure-infrastructure:
-          requires:
-          - deploy-infrastructure
-      - run-migrations:
-          requires:
-            - configure-infrastructure
-      - deploy-frontend:
-          requires:
-          - run-migrations
+      - deploy-backend
 
