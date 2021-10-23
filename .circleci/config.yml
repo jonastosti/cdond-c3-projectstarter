@@ -352,6 +352,7 @@ jobs:
             export STACKS=($(aws cloudformation list-stacks --query "StackSummaries[*].StackName" \
               --stack-status-filter CREATE_COMPLETE --no-paginate --output text)) 
             echo Stack names: "${STACKS[@]}"
+            export S3_EXISTS=$(aws s3 ls s3://udapeople-${OldWorkflowID} 2>&1 | grep -c 'index.html')
       - run:
           name: Remove old stacks and files
           command: |
@@ -359,7 +360,10 @@ jobs:
             then
               echo "Deleted"
               aws cloudformation delete-stack --stack-name "udapeople-backend-${OldWorkflowID}"
-              aws s3 rm "s3://udapeople-${OldWorkflowID}" --recursive
+              if [ $S3_EXISTS -eq 1 ]
+              then
+                aws s3 rm "s3://udapeople-${OldWorkflowID}" --recursive
+              fi
               aws cloudformation delete-stack --stack-name "udapeople-frontend-${OldWorkflowID}"
             fi
             else
