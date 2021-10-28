@@ -1,0 +1,2 @@
+URL01: https://github.com/jonastosti/cdond-c3-projectstarter
+URL02: http://udapeople-633c468.s3-website-us-east-1.amazonaws.com
